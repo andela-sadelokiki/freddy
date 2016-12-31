@@ -1,0 +1,32 @@
+<div class="overlay300">
+	<nav class="navigation">
+		<div class="mw group">
+			<div class="float-left">
+				<a href="" ng-click="go.closeMessageContent()"><span class="glyphicon glyphicon-arrow-left"></span></a>
+				<h2>{{chat.users[0].displayName}}</h2>
+			</div> <!--float-left-->
+			<div class="float-right">
+				<span class="glyphicon glyphicon-paperclip"></span>
+				<span class="glyphicon glyphicon-th-large"></span>
+				<span class="glyphicon glyphicon-option-vertical"></span>
+			</div> <!--float-right-->
+		</div> <!--mw group-->
+	</nav> <!--navbar-->
+		<div class="mw underfixed overfixed">
+			<ul class="message-cont">
+				<li ng-repeat="message in chat.messages | orderBy: time : true"><div class="message-line" ng-class="{me: message.me, you1: !message.me}">{{message.text}}</div><span class="itemTime" ng-class="{'float-right padt': message.me}">{{message.time | date : 'short' }}</span></li>
+			</ul>
+		</div>
+		<footer class="foot-menu">
+			<div class="mw group">
+				<form class="">
+				    <div class="input-group">
+				    	<input type="text" class="form-control" aria-label="..." ng-model="newMessage.text">
+					    <button class="btn btn-default" ng-click="submitMessage()">
+		  					<span class="glyphicon glyphicon-play"></span>
+						</button>
+					</div>
+				</form>
+			</div> <!--mw group-->		
+	</footer>
+</div>

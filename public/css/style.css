@@ -1,0 +1,921 @@
+* {
+  margin = 0;
+}
+
+html, body {
+height: 100%;
+}
+
+body {
+  background-color: #f5f8fa;
+  overflow: auto;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+/*---- Classes genéricas -------------------*/
+
+.mw {
+  width: 100%;
+  max-width: 768px;
+  margin: auto;
+  position: relative;
+}
+
+.mw30{
+  width: 100%;
+  max-width: 30em;
+  margin: auto;
+}
+
+.pad3 {
+  padding-left: 1.5%;
+  padding-right: 1.5%;
+}
+
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.float-right{
+  display: inline;
+  float: right;
+}
+
+.float-left {
+  display: inline;
+  float: left;
+}
+
+.align-right{
+  text-align:right;
+}
+
+.c3 {
+  color: #333;
+}
+
+.mgb {
+  margin-top: 0.5em;
+}
+
+.padt {
+  padding-top: 1em;
+}
+
+.fixed {
+  position: fixed;
+  width: 100%;
+}
+
+.underfixed {
+  padding-top: 4em;
+}
+
+.overfixed{
+    margin-bottom: 5em;
+}
+
+.overlay{
+  position: fixed;
+  overflow-y: scroll;
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  background-color: #f5f8fa;
+  text-align: left;
+}
+
+.overlay200{
+  position: fixed;
+  overflow-y: scroll;
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 200;
+  background-color: #f5f8fa;
+  text-align: left;
+}
+
+.overlay300{
+  position: fixed;
+  overflow-y: scroll;
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 300;
+  background-color: #f5f8fa;
+  text-align: left;
+}
+
+.noscroll{
+  overflow: hidden;
+}
+
+.alert{
+  margin-bottom: 0;
+}
+
+.on {
+  color: #333;
+}
+
+/*---- Header com Logo -------------------*/
+
+.wbg {
+  background-color: rgba(0,0,0,0.8);
+}
+
+#logo img{
+    height: 2.75em;
+    margin: 1em 0.5em;
+}
+
+.searchBar {
+  float: right;
+  font-size: 1.25em;
+  margin: 1.25em;
+  color: #54575a;
+}
+
+/*---- Navigation -------------------*/
+
+.navigation {
+  background-color: #54575a;
+  border-radius: 0;
+  color: #fff;
+  padding: 0, 0.75em;
+}
+
+.invnav {
+  background-color: #fff;
+  color: #54575a;
+}
+
+.navigation h2{
+  display: inline-block;
+  font-size: 1.5em;
+  margin: 0;
+  margin-right: 0.5em;
+  padding-top: 0;
+}
+
+.navigation span{
+  font-size: 1.25em;
+  margin: 0.5em;
+  padding-top: 0.75em;
+  padding-bottom: 0.75em;
+}
+
+.navSingleTitle{
+  padding: 0.75em;
+  margin: 0.5em;
+  margin-left: 0;
+}
+
+.navDoubleTitle{
+  display: inline-block;
+  padding-top: 0.75em;
+  margin-left: 0.5em;
+}
+
+.navDoubleTitle p{
+  font-style: italic;
+  font-weight: lighter;
+}
+
+.nav-buttons {
+  position: absolute;
+  top: 0.25em;
+  right: 0;
+}
+
+.nextButton {
+  border-left: 1px solid;
+  font-size: 1.25em;
+  margin: 0.5em;
+}
+
+.nextButton span {
+  font-size: 0.75em;
+  margin: 1em;
+}
+
+.transparent, .tnav {
+  background-color: rgba(0,0,0,0.75);
+  border-bottom: 0;
+  color: rgba(255,255,255,0.4);
+}
+
+.tnav span:hover {
+  color: #fff;
+}
+
+.nav2col {
+  background-color: #fff;
+  font-size: 1.2em;
+  border-bottom: 1px solid #e2e2e2;
+  color: #777;
+  box-shadow: 0px 1px 3px #bbb;
+  margin-bottom: 1px;
+  font-weight: bold;
+}
+
+.nav2col div{
+  display: inline-block;
+  width: 49%;
+  text-align: center;
+  padding: 0.5em 0;
+}
+
+.nav2selected {
+  color: #333;
+  border-bottom: 1px solid #333;
+}
+
+.nav2col div:hover{
+  color: #999;
+  border-bottom: 1px solid #999;
+}
+/*---- Footer menu -------------------*/
+
+.foot-menu {
+  background-color: #777;
+  color: #fff;
+  text-align: center;
+  position:fixed;
+  left:0px;
+  bottom:0px;
+  width:100%;
+  z-index: 200;
+}
+
+.foot-menu li {
+  display: inline-block;
+  font-size: 1.5em;
+  width: 25%;
+  margin-right: -4px;
+  border-bottom: 0.125em solid #777;
+}
+
+.foot-menu li:hover{
+  background-color: #333;
+  height: 100%;
+  border-bottom: 0.125em solid #fff;
+}
+
+.foot-menu a {
+  display: inline-block;
+  color:inherit;
+  padding: 0.625em 0 0.5em;
+  width: 100%;
+  height: 100%;
+}
+
+.foot-selected {
+  background-color: #333;
+  height: 100%;
+  border-bottom: 0.125em solid #fff;
+}
+
+/*---- Browse tab -------------------*/
+
+.feeditem {
+    width: 100%;
+    max-width: 30em;
+    background: #fff;
+    margin: auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    border-radius: 5px;
+}
+
+.feeditem header {
+  padding: 0.75em;
+  padding-left: 1.5%;
+  padding-right: 1.5%;
+}
+
+.itemTime{
+  font-size: 0.85em;
+  color: #b2b2b2;
+  margin-left: 0 1em;
+}
+
+.feedfriend {
+  display: inline-block;
+  background: no-repeat center /cover;
+  border-radius: 50%;
+  height: 3em;
+  width: 3em;
+  margin-right: 1em;
+}
+
+.feedfriendname {
+  font-size: 1.25em;
+}
+
+.itemName, .itemList {
+  color: #337ab7;
+}
+
+.feedpic {
+  margin: auto;
+  margin-bottom: 0.5em;
+  width: 100%;
+  height: 27em;
+}
+
+.overpic {
+  display:inline-block;
+  margin-top: 10%;
+}
+
+.overpic li{
+  font-size: 1.25em;
+  display:block;
+  margin: 0.25em 0;
+  padding: 0.5em;
+  color: #ddd;
+}
+
+.overpic span{
+  color: #fbd721;
+}
+
+.overpic li{
+  border-radius: 0 5px 5px 0;
+}
+
+.itemButtons {
+  font-size: 1.5em;
+  margin: 0.25em;
+  color:#b2b2b2;
+}
+
+.itemButtons span {
+  margin-right: 0.75em;
+}
+
+.itemButtons span:hover {
+  color: #333;
+}
+
+.itemComments {
+  font-size: 0.9em;
+  margin: 0.5em;
+}
+
+.itemComments p{
+  margin-bottom: 0.1em;
+}
+
+.commentUser{
+  font-weight: bold;
+}
+
+.likeCount{
+  font-weight: bold;
+  font-size: 0.9em;
+  vertical-align: top;
+  margin: 0.75em 0 0.75em 0.5em;
+}
+
+.commentInput input{
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  width: 100%;
+  border-width: 0px;
+  background-color: #eee;
+  padding: 0.5em;
+  font-size: 0.9em;
+  line-height: 1em;
+  border-radius: 5px;
+}
+
+/*---- Profile tab -------------------*/
+
+.profile-header {
+  background-color: #fff;
+  width: 100%;
+  padding: 0.5em;
+}
+
+.parent {
+  overflow: hidden;
+  position: relative;
+}
+
+.profile-pic {
+    display: inline-block;
+    background: no-repeat center /cover;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 6em;
+    width: 6em;
+}
+
+.profile-data {
+  display: inline-block;
+  width: 70%;
+  padding: 1.5em 0.5em 0.5em;
+  text-align: center;
+}
+
+.profile-data, .profile-data ul {
+  display: block;
+  margin: auto;
+    white-space: nowrap;
+}
+
+.profile-data li {
+  display: inline-block;
+  width: 25%;
+  text-align: center;
+  margin:auto;
+}
+
+.profile-data a {
+  font-size: 1em;
+  font-weight: 700;
+  line-height: 2em;
+  color: inherit;
+}
+
+.profile-data span {
+  margin-right: 0.25em;
+  font-weight: normal;
+}
+
+.follow-btn {
+  display: inline-block;
+  margin: auto;
+  width: 90%;
+  text-align: center;
+}
+
+.profile-nav {
+  background-color: #fff;
+  border-top: 1px solid #eee;
+  color: #aaa;
+  padding: 0.5em;
+  font-size: 1.5em;
+  white-space: nowrap;
+}
+
+.profile-nav li {
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+}
+
+.profile-nav a {
+  display: inline-block;
+  width: 100%;
+}
+
+.profile-nav li:hover{
+  color: #333; 
+}
+
+.userlists {
+  color: #fff;
+  padding: 1% 0;
+  text-align: center;
+}
+
+.userlist {
+  display: inline-block;
+  border-radius: 5px;
+  background: black;
+  width: 49%;
+  margin: 0 0.5%;
+  height: 16em;
+  position: relative;
+}
+
+.userlist a{
+  display: inline-block;
+  padding-top: 5em;
+  width: 100%;
+  height: 100%;
+}
+
+.userlist a:hover {
+  color: #fbd721;
+}
+
+.userlist a h2 {
+  font-size: 1.25em;
+}
+
+.userlist a p {
+  position: absolute;
+  font-size: 0.75em;
+  top:5px;
+  right:5px;
+}
+
+.newListButton {
+  margin: 1.25em 0 1em;
+  text-align: center;
+}
+
+.newListButton a {
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 4px;
+  padding: 0.75em 2em;
+  color: #fff;
+}
+
+.newListButton a:hover {
+  color: #fbd721;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.newListButton span {
+  margin-right: 0.5em;
+}
+
+.notification-list {
+  background-color: white;
+}
+
+.notification-list li {
+  padding: 1em 1em 1em 0;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.notification-list li:hover{
+ background-color: #e6e6e6;
+ border-color: #adadad;
+}
+
+.notification-data p{
+  display: inline-block;
+  font-size: 1.1em;
+  margin-top: 0.5em;
+  margin-bottom: 0;
+}
+
+
+/*---- Vertical List -------------------*/
+
+.vertical-list {
+  margin-top: 1em;
+  padding:3px;
+  margin-bottom: 4em;
+}
+
+.vertical-list.ng-scope{
+  margin:0;
+  padding:0;
+}
+
+.itemBox {
+  width: 100%;
+  padding: 6px;
+  background-color: #fff;
+  border: 1px solid #d3e0e9;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.itemBox a{
+  display: inline-block;
+  height: 100%;
+  width: 80%;
+  cursor: pointer;
+}
+
+.itemBox:hover {
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
+
+.listItemButtons {
+  position: absolute;
+  right:0;
+  top: 0;
+  padding: 0.25em;
+}
+
+.itemImage{
+  width: 8em;
+  height: 90%;
+  position: absolute;
+  left: 0.5em;
+  bottom:0.5em;
+  padding: 3px;
+  vertical-align: middle;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.itemContent{
+  text-align: left;
+  display: inline-block;
+  margin-left: 9em;
+  margin-top: 3px;
+  width: 50%;
+  color: #777;
+}
+
+.itemContent h1{
+  margin: 0 0 0.3em;
+  font-size: 1.65em;
+}
+
+.itemContent p{
+  margin: 0;
+}
+
+.ratings-line {
+  color: #777;
+  padding: 1.25em 0;
+  font-size: 0.9em;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.ratings-line label {
+  margin-right: 0.5em;
+  margin-left: 0.3em;
+  font-weight: 400;
+  font-family: "Glyphicons Halflings";
+}
+
+.resultButtonBar {
+  height: 95%;
+  position: absolute;
+  right: 0.5em;
+  bottom:0;
+}
+
+/*---- New List -------------------*/
+
+.newListOverlay {
+  z-index: 200;
+}
+
+.newListForm {
+  padding: 2em;
+  text-align: center;
+}
+
+.newListForm label {
+  display: block;
+  font-weight: normal;
+  font-size: 1.125em;
+}
+
+.newListForm input {
+  font-size: 1.125em;
+  margin-bottom: 2em;
+/*  border: 0;
+  border-bottom: 1px solid #ddd;
+*/}
+
+.newListForm select {
+  margin: 0.25em 0;
+  padding: 0.75em;
+  border-radius: 5px;
+}
+
+.emptyListText {
+  text-align: center;
+  font-size: 1.125em;
+  margin: 0.5em 1.25em;
+}
+
+/*---- Search -------------------*/
+
+.searchForm, .searchBox, .form-control {
+  display: inline;
+  width: inherit;
+}
+
+.form-group.searchBox {
+  display: inline;
+}
+
+.searchBox input{
+  width: 12em;
+}
+
+.searchButton {
+  color: #fff;
+  background-color: inherit;
+  border: 0;
+  font-weight: normal;
+}
+
+.searchButton span{
+  padding: 0;
+  margin: 0;
+}
+
+/*---- Movie Content -----------------*/
+
+.coverImage{
+  height: 100%;
+  background-color: #000;
+}
+
+.movieContent{
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  max-width: 40em;
+}
+
+.movieBody{
+  background-color: #f5f8fa;
+  z-index: 300;
+}
+
+.movieDetails{
+  position:absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+}
+
+.movieDetails h1{
+  font-size: 2em;
+  margin-right: 0.25em;
+  font-weight: bold;
+  display: inline;
+}
+
+.movieInteract {
+  margin: 0;
+  padding-top: 0.5em;
+  border-top: 1px solid #e1e1e1;
+}
+
+.rateBox{
+  padding: 0 0.75em;
+  font-size: 1.75em;
+  color:#b2b2b2;
+}
+
+.rateBox a{
+  font-size: 0.7em;
+  vertical-align: middle;
+}
+
+.movieDescription {
+  font-size: 0.9em;
+  padding: 0 1em 0.1em;
+  color: #b2b2b2;
+}
+
+.movieDescription h3 {
+  font-size: 1em;
+  font-weight: bold;
+  margin:0.75em 0;
+  color: #b2b2b2;
+}
+
+.ratingFooter {
+  padding: 0.5em;
+  border-bottom: 1px solid #e1e1e1;
+  color: #b2b2b2;
+  font-size: 1em;
+  width: 95%;
+  margin: auto;
+  white-space: nowrap;
+}
+
+.ratingFooter ul{
+  width: 100%;
+  margin: auto;
+  font-size: 1.2em;
+}
+
+.ratingFooter li{
+  display: inline-block;
+  margin:auto;
+  width: 31%;
+  padding:1%;
+  text-align: center;
+}
+
+.ratingFooter li:hover {
+  color: #333;
+}
+
+/*---- Messages -----------------*/
+
+.message-list {
+  background-color: white;
+}
+
+.message-list li {
+  padding: 1em 1em 1em 0;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.message-list li:hover{
+ background-color: #e6e6e6;
+ border-color: #adadad;
+}
+
+.message-data h3{
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-top: 0.5em;
+  margin-bottom: 0;
+}
+
+.message-data p{
+  color: #777;
+}
+
+.contact-pic {
+  display: inline-block;
+  background: no-repeat center /cover;
+  border-radius: 50%;
+  height: 4em;
+  width: 4em;
+  margin: 0 1em;
+}
+
+.contactnumbers{
+  color:#999;
+  padding: 0.25em 0;
+  white-space: nowrap;
+  vertical-align: middle;
+  font-size: 0.9em;
+}
+
+.contactnumbers label{
+  margin-right: 0.5em;
+  margin-left: 0.3em;
+  font-weight: 400;
+  font-family: "Glyphicons Halflings";
+}
+
+/*---- Message-content -----------------*/
+
+.messageContentBody{
+  z-index: 250;
+}
+
+.message-cont {
+  padding: 1em;
+}
+
+.message-cont li:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.message-line {
+  display: inline-block;
+  padding: 0.5em;
+  border-radius: 3px;
+  margin: 0.25em 0;
+}
+
+.you1 {
+  background-color: #fff;
+  margin-right: 0.5em;
+}
+
+.me {
+    background-color: #e4ecf2;
+    float:right;
+    margin-left: 0.5em;
+}
+

@@ -1,0 +1,27 @@
+	<div class="wrapper">
+		<nav class="navigation">
+			<div class="mw group">
+				<div class="float-left navSingleTitle">
+					<h2>{{user.displayName}}</h2>
+				</div> <!--float-left-->
+				<div class="float-right">
+				<a class="dropdown">
+					<a href="" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						<span class="glyphicon glyphicon-option-vertical"></span>
+						<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+						    <li><a href="/logout">Log out</a></li>
+						</ul>
+					</a>
+				</a>
+				</div> <!--float-right-->
+			</div> <!--mw group-->
+		</nav> <!--navigation-->
+		<div class="profile-header group">
+			<div class="mw parent">
+				<div class="profile-pic float-left" style='background-image: url({{user.pictureUrl}})'></div>
+				<div class="profile-data float-right">
+					<button class="follow-btn btn">Edit Profile</button>
+				</div> <!--profile-data-->
+	  		</div> <!--mw-->
+		</div> <!--profile-header-->
+	</div> <!--wrapper-->

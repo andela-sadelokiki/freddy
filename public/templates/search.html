@@ -1,0 +1,35 @@
+<nav class="navigation">
+	<div class="mw group">
+			<form class="searchForm navbar-form navbar-left" role="search">
+			    <div class="input-group">
+			    	<input type="text" class="form-control" aria-label="..." ng-model="search.input">
+				    <select class="btn btn-default dropdown-toggle" name="searchType" ng-model="search.type">
+				      <option value="">All</option>
+				      <option value="people">People</option>
+				    </select>
+				    <button class="btn btn-default searchButton" ng-click="search.submit()">
+	  					<span class="glyphicon glyphicon-search"></span>
+					</button>
+				</div>
+			</form>
+	</div> <!--mw group-->
+</nav> <!--navbar-->
+<div class="mw overfixed">
+	<h2 ng-hide='search.peopleResults.length == 0'>Results for people:</h2>
+	<ul>
+		<li ng-repeat="user in search.peopleResults">
+			<a href="" ng-click="loadProfile()">
+				<div class="itemBox group">
+					<div class="contact-pic" style="background: url({{user.pictureUrl}}) no-repeat center /cover;"> </div>
+					<div class="itemContent">
+						<h1>{{user.displayName}}</h1>
+						<div class="ratings-line">
+							<span class="glyphicon glyphicon-th-large"></span><label>{{user.lists.length}}</label>
+							<span class="glyphicon glyphicon-user"></span><label>{{user.friends.length}}</label>
+						</div> <!--ratings-line-->
+					</div>  <!--item-content-->					
+				</div>
+			</a>
+		</li>
+	</ul>
+</div>

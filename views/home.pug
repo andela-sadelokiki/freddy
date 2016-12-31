@@ -1,0 +1,43 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=no')
+    title Freddy
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css', integrity='sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7', crossorigin='anonymous')
+    link(rel='stylesheet', href='css/style.css')
+    script(src='https://use.fontawesome.com/3c75be1118.js')
+  body(ng-app='freddyApp', ng-controller='mainCtrl', ng-class="{'noscroll': overlay}")
+    .alert.alert-warning(role='alert', ng-show='user.activated == false')
+      | Please check your email to verify your account 
+      button.btn.btn-primary 
+       a(href="/activate/resend") Re-send email
+    div
+      div(ng-show='interface.search')
+        search
+      div(ng-show='interface.messages')
+        messages
+      div(ng-show='interface.me')
+        me
+    div(ng-show='interface.profile')
+      profile
+    div(ng-show='interface.messageContent')
+      message-content
+    footer.foot-menu
+      nav.mw
+        ul
+          li
+            a(href='', ng-click='go.loadSearch()', ng-class="{'foot-selected': interface.search}")
+              span.glyphicon.glyphicon-search
+          li
+            a(href='', ng-click='go.loadMessages()', ng-class="{'foot-selected': interface.messages}")
+              span.glyphicon.glyphicon-envelope
+          li
+            a(href='', ng-click='go.loadMe()', ng-class="{'foot-selected': interface.me}")
+              span.glyphicon.glyphicon-user
+              span.badge(ng-hide='user.notifications.unread.length == 0') {{user.notifications.unread.length}}
+    script(src='http://code.jquery.com/jquery-1.11.0.min.js', type='text/javascript', charset='utf-8')
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous")
+    script(src='/scripts/vendor.bundle.js')
+    script(src='/scripts/todo.bundle.js')

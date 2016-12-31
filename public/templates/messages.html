@@ -1,0 +1,28 @@
+	<div class="wrapper">
+		<nav class="navigation">
+			<div class="mw group">
+				<div class="float-left navSingleTitle">
+					<h2>Messages</h2>
+				</div> <!--float-left-->
+				<div class="float-right">
+					<span class="glyphicon glyphicon-search"></span>
+					<span class="glyphicon glyphicon-plus"></span>
+					<span class="glyphicon glyphicon-option-vertical"></span>
+				</div> <!--float-right-->
+			</div> <!--mw group-->
+		</nav> <!--navigation-->
+		<nav class="nav2col mw">
+			<div><a href="">Conversations</a></div>
+		</nav> <!--nav2col-->
+		<div class="mw">
+			<ul class="message-list">
+				<li ng-repeat="chat in user.chats"><a href="" ng-click="loadMessageContent(chat.users[0]._id)"><div class="group">
+					<div class="contact-pic float-left" style='background-image: url({{chat.users[0].pictureUrl}})'></div>
+					<div class="message-data float-left">
+						<h3>{{chat.users[0].displayName}}</h3>
+						<p>{{chat.messages[0].text}}</p>
+					</div> <!--message-data-->
+					<a class="itemTime mgb float-right">{{chat.messages[0].time | date: 'short'}}</a>
+				</div></a></li>
+		</div> <!--mw-->
+	</div> <!--wrapper-->

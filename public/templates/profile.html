@@ -1,0 +1,22 @@
+<div class="overlay">
+	<div class="wrapper">
+		<nav class="navigation">
+			<div class="mw group">
+				<div class="float-left">
+					<a href="" ng-click="go.closeProfile()"><span class="glyphicon glyphicon-arrow-left"></span></a>
+				</div> <!--float-left-->
+				<div class="float-left navSingleTitle">
+					<h2>{{person.displayName}}</h2>
+				</div> <!--float-left-->
+			</div> <!--mw group-->
+		</nav> <!--navigation-->
+		<div class="profile-header group">
+			<div class="mw parent">
+				<div class="profile-pic float-left" style='background-image: url({{person.pictureUrl}})'></div>
+				<div class="profile-data float-right">
+					<a href="" class="btn btn-info" ng-click="loadMessageContent(person._id)"><span class="glyphicon glyphicon-envelope"></span></a>
+				</div> <!--profile-data-->
+	  		</div> <!--mw-->
+		</div> <!--profile-header-->
+	</div> <!--wrapper-->
+</div>

@@ -1,0 +1,23 @@
+extends layout
+block content
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        .alert.alert-success.alert-dismissible.fade.in(role='alert')
+          button.close(type='button', data-dismiss='alert', aria-label='Close')
+            span(aria-hidden='true') ×
+          |  An email was to your address for you to reset your password!
+        .alert.alert-danger.alert-dismissible.fade.in(role='alert')
+          button.close(type='button', data-dismiss='alert', aria-label='Close')
+            span(aria-hidden='true') ×
+          |  The email entered is not registered. Please enter a valid email.
+        h1.display-4.m-b-2 Forgot your Password
+        p.lean Tell us the email which you used to sign up and we will send you a link to reset your password.
+        form(method='POST' action='/forgot')
+          div.form-group
+            label(for='email') Email
+            input.form-control(type='text' id='email' placeholder='email' name='email')
+          div.button-group
+            button.btn.btn-primary(type='submit') Send
+    script(src='http://code.jquery.com/jquery-1.11.0.min.js', type='text/javascript', charset='utf-8')
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous")
