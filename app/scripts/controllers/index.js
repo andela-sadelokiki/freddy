@@ -3,7 +3,12 @@
 var angular = require('angular');
 
 angular.module('freddyApp')
-.controller('mainCtrl', function($scope, dataService, $q, $filter, $timeout, socket) {
+.controller('mainCtrl', function($scope, dataService, $q, $filter, $timeout, mySocket) {
+
+	 mySocket.on('message', function (data) {
+		 console.log("new message", data);
+      // $scope.name = data.name;
+    });
 
 	dataService.getUser(function(response) { 
     	console.log(response.data);
@@ -12,15 +17,15 @@ angular.module('freddyApp')
     	$scope.loadUserChats();
     });
 
-  	socket.on('connect',function(){
-			console.log('connected');
-  	});
+	mySocket.on('connect',function(){
+		console.log('connected');
+	});
 
 	$scope.loadUsersBasicArray = function(IDsArray){
 		var usersArray = [];
 	 	angular.forEach(IDsArray, function(id){
 		 		dataService.getUsername(id, function(response){	
-//		 			var list = loadUsernames(response.data);
+// 			var list = loadUsernames(response.data);
 					var person = response.data;
 		 			usersArray.unshift(person);
 		 		});
@@ -182,7 +187,6 @@ angular.module('freddyApp')
 	};
 
 	$scope.submitMessage = function(){
-		console.log('clicked');
 		var time = Date.now();
 		var text = $scope.newMessage.text;
 		var userID = $scope.user._id;
@@ -197,7 +201,6 @@ angular.module('freddyApp')
 			dbMessage: dbMessage
 		}
 			dataService.submitMessageToChat(reqBody, function(response){
-				console.log("entered", response.data.message);
 			$scope.newMessage.text = "";
 			$scope.updateChatContent(chatID);
 			});

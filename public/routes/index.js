@@ -11,8 +11,6 @@ var passport = require('passport');
 var passportStrategies=require('./passportStrategies')
 var conEnsure=require('connect-ensure-login');//midleware used to check authentication of every request 
 
-
-
 //setting up passport configuration
 
 passportStrategies(passport);
@@ -403,12 +401,14 @@ router.get('/updateChat/:id', function(req,res){
 router.put('/chat/:chatID', function(req, res){
   var chatID = req.params.chatID;
   var dbMessage = req.body.dbMessage;
-      Chat.update({_id: chatID}, { $push: { messages: { $each: [dbMessage], $position: 0 }} }, function(err, chat) {
+  console.log('Yes, we have received your message: '+ dbMessage.text);
+      Chat.update({_id: chatID}, { $push: { messages: { $each: [dbMessage], $position: 0 }} }, function(err) {
         if (err) {
             return res.status(500).json({ err: err.message });
           };
-        console.log(res, "form server");
-    });
+      });
+      res.io.emit('send message', res.req.body);
+      console.log("emit here!!!!");
     return res.json({"message": 'Message sent'});
 });
 

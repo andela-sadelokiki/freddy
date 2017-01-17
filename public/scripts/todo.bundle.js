@@ -5,8 +5,8 @@ webpackJsonp([0],[
 	'use strict';
 
 	var angular = __webpack_require__(1);
-
-	angular.module('freddyApp', []);
+	console.log(angular, "load here");
+	angular.module('freddyApp', ['btford.socket-io']);
 
 	__webpack_require__(3);
 	__webpack_require__(5);
@@ -27,29 +27,10 @@ webpackJsonp([0],[
 
 	angular.module('freddyApp').service('dataService', __webpack_require__(4));
 
-	angular.module('freddyApp').factory('socket', function ($rootScope) {
-	  var socket = io.connect();
-
-	  return {
-	    on: function (eventName, callback) {
-	      socket.on(eventName, function () {  
-	        var args = arguments;
-	        $rootScope.$apply(function () {
-	          callback.apply(socket, args);
-	        });
-	      });
-	    },
-	    emit: function (eventName, data, callback) {
-	      socket.emit(eventName, data, function () {
-	        var args = arguments;
-	        $rootScope.$apply(function () {
-	          if (callback) {
-	            callback.apply(socket, args);
-	          }
-	        });
-	      })
-	    }
-	  };
+	angular.module('freddyApp').factory('mySocket', function (socketFactory) {
+	  var mySocket = socketFactory();
+	  mySocket.forward('error');
+	  return mySocket;
 	});
 
 /***/ },
@@ -58,7 +39,7 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	function DataService ($http, $q, socket) {
+	function DataService ($http, $q, mySocket) {
 
 	  this.getUser = function(cb, cb2) {
 	    $http.get('/user').then(cb).finally(cb2);
@@ -89,8 +70,6 @@ webpackJsonp([0],[
 	  };
 
 	  this.submitMessageToChat = function(reqBody, cb) {
-	    socket.emit('send chat', 'hi server!');
-	      console.log('Server emitted displaychat: ' );
 	    $http.put('/chat/' + reqBody.id, reqBody).then(cb);
 	  };
 
@@ -203,7 +182,12 @@ webpackJsonp([0],[
 	var angular = __webpack_require__(1);
 
 	angular.module('freddyApp')
-	.controller('mainCtrl', function($scope, dataService, $q, $filter, $timeout, socket) {
+	.controller('mainCtrl', function($scope, dataService, $q, $filter, $timeout, mySocket) {
+
+		 mySocket.on('message', function (data) {
+			 console.log("new message", data);
+	      // $scope.name = data.name;
+	    });
 
 		dataService.getUser(function(response) { 
 	    	console.log(response.data);
@@ -212,15 +196,15 @@ webpackJsonp([0],[
 	    	$scope.loadUserChats();
 	    });
 
-	  	socket.on('connect',function(){
-				console.log('connected');
-	  	});
+		mySocket.on('connect',function(){
+			console.log('connected');
+		});
 
 		$scope.loadUsersBasicArray = function(IDsArray){
 			var usersArray = [];
 		 	angular.forEach(IDsArray, function(id){
 			 		dataService.getUsername(id, function(response){	
-	//		 			var list = loadUsernames(response.data);
+	// 			var list = loadUsernames(response.data);
 						var person = response.data;
 			 			usersArray.unshift(person);
 			 		});
@@ -382,7 +366,6 @@ webpackJsonp([0],[
 		};
 
 		$scope.submitMessage = function(){
-			console.log('clicked');
 			var time = Date.now();
 			var text = $scope.newMessage.text;
 			var userID = $scope.user._id;
@@ -397,7 +380,6 @@ webpackJsonp([0],[
 				dbMessage: dbMessage
 			}
 				dataService.submitMessageToChat(reqBody, function(response){
-					console.log("entered", response.data.message);
 				$scope.newMessage.text = "";
 				$scope.updateChatContent(chatID);
 				});

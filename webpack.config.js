@@ -5,7 +5,7 @@ module.exports = {
     context: __dirname + '/app',
     entry: {
         app: './app.js',
-        vendor: ['angular']
+        vendor: ['angular', 'angular-socket-io']
     },
     output: {
         path: __dirname + '/public/scripts',

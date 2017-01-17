@@ -14,6 +14,11 @@ var users = require('./routes/users');
 var auth = require('./routes/auth');
 
 var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+//socket connect
+io.sockets.on('connection', require('./routes/socket'));
 
 //mongodb connection
 mongoose.connect('mongodb://localhost:27017/freddy');
@@ -35,6 +40,7 @@ app.use(passport.session());
 // make user ID available in templates
 app.use(function (req, res, next){
   res.locals.currentUser = req.session.userId;
+  // res.io = io;
   next();
 });
 

@@ -1,8 +1,8 @@
 'use strict';
 
 var angular = require('angular');
-
-angular.module('freddyApp', []);
+console.log(angular, "load here");
+angular.module('freddyApp', ['btford.socket-io']);
 
 require('./scripts/services');
 require('./scripts/directives');
