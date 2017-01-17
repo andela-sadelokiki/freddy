@@ -37,6 +37,7 @@ html
             a(href='', ng-click='go.loadMe()', ng-class="{'foot-selected': interface.me}")
               span.glyphicon.glyphicon-user
               span.badge(ng-hide='user.notifications.unread.length == 0') {{user.notifications.unread.length}}
+    script(src='/socket/socket.io.js' type='text/javascript', charset='utf-8')
     script(src='http://code.jquery.com/jquery-1.11.0.min.js', type='text/javascript', charset='utf-8')
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous")
     script(src='/scripts/vendor.bundle.js')

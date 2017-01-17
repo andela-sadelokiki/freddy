@@ -7,6 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('spready:server');
 var http = require('http');
+var Chat = require('../models/chat');
+
 
 /**
  * Get port from environment and store in Express.
@@ -20,7 +22,15 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+var io = require('socket.io').listen(server);
 
+io.sockets.on('connection', function(socket) {
+  console.log('ya we got connected')
+  socket.on('send chat', function(data) {
+    console.log('message sent '+ data);
+  });
+
+});
 /**
  * Listen on provided port, on all network interfaces.
  */

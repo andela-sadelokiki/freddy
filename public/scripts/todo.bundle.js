@@ -27,6 +27,30 @@ webpackJsonp([0],[
 
 	angular.module('freddyApp').service('dataService', __webpack_require__(4));
 
+	angular.module('freddyApp').factory('socket', function ($rootScope) {
+	  var socket = io.connect();
+
+	  return {
+	    on: function (eventName, callback) {
+	      socket.on(eventName, function () {  
+	        var args = arguments;
+	        $rootScope.$apply(function () {
+	          callback.apply(socket, args);
+	        });
+	      });
+	    },
+	    emit: function (eventName, data, callback) {
+	      socket.emit(eventName, data, function () {
+	        var args = arguments;
+	        $rootScope.$apply(function () {
+	          if (callback) {
+	            callback.apply(socket, args);
+	          }
+	        });
+	      })
+	    }
+	  };
+	});
 
 /***/ },
 /* 4 */
@@ -34,7 +58,7 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	function DataService ($http, $q) {
+	function DataService ($http, $q, socket) {
 
 	  this.getUser = function(cb, cb2) {
 	    $http.get('/user').then(cb).finally(cb2);
@@ -65,6 +89,8 @@ webpackJsonp([0],[
 	  };
 
 	  this.submitMessageToChat = function(reqBody, cb) {
+	    socket.emit('send chat', 'hi server!');
+	      console.log('Server emitted displaychat: ' );
 	    $http.put('/chat/' + reqBody.id, reqBody).then(cb);
 	  };
 
@@ -177,7 +203,7 @@ webpackJsonp([0],[
 	var angular = __webpack_require__(1);
 
 	angular.module('freddyApp')
-	.controller('mainCtrl', function($scope, dataService, $q, $filter, $interval, $timeout){
+	.controller('mainCtrl', function($scope, dataService, $q, $filter, $timeout, socket) {
 
 		dataService.getUser(function(response) { 
 	    	console.log(response.data);
@@ -186,10 +212,14 @@ webpackJsonp([0],[
 	    	$scope.loadUserChats();
 	    });
 
+	  	socket.on('connect',function(){
+				console.log('connected');
+	  	});
+
 		$scope.loadUsersBasicArray = function(IDsArray){
 			var usersArray = [];
 		 	angular.forEach(IDsArray, function(id){
-			 		dataService.getUsername(id, function(response){
+			 		dataService.getUsername(id, function(response){	
 	//		 			var list = loadUsernames(response.data);
 						var person = response.data;
 			 			usersArray.unshift(person);
@@ -294,16 +324,23 @@ webpackJsonp([0],[
 				var scopeChat = {};
 				var found = false;
 				angular.forEach(chats, function(chat){
-					if(!chat.group && chat.users[0]._id == personId){
-						scopeChat = chat;
-						found = true;
+					var user = chat.users[0];
+
+					// if (!chat.group && chat.users[0]._id == personId) {
+					if (!chat.group && user) {
+						if (user._id == personId) {
+							scopeChat = chat;
+							found = true;
+
+							if(found){
+								$scope.chat = scopeChat;
+							} else {
+								$scope.addNewChatToDb();
+							}
+							return;
+						}
 					}
 				});
-				if(found){
-					$scope.chat = scopeChat;
-				} else {
-					$scope.addNewChatToDb();
-				}
 		};
 
 		$scope.addNewChatToDb = function(){
@@ -345,6 +382,7 @@ webpackJsonp([0],[
 		};
 
 		$scope.submitMessage = function(){
+			console.log('clicked');
 			var time = Date.now();
 			var text = $scope.newMessage.text;
 			var userID = $scope.user._id;
@@ -358,12 +396,14 @@ webpackJsonp([0],[
 				id: chatID,
 				dbMessage: dbMessage
 			}
-			dataService.submitMessageToChat(reqBody, function(response){
-				console.log(response.data.message);
-			});
-			$scope.newMessage.text = "";
-			$scope.updateChatContent(chatID);
-		};
+				dataService.submitMessageToChat(reqBody, function(response){
+					console.log("entered", response.data.message);
+				$scope.newMessage.text = "";
+				$scope.updateChatContent(chatID);
+				});
+			  
+			};
+		
 
 		$scope.updateChatContent = function(chatId){
 			var scopeMessages;
@@ -380,7 +420,6 @@ webpackJsonp([0],[
 					}
 				});
 				$scope.chat.messages = scopeMessages;
-	//			console.log(scopeMessages);
 			});
 
 	//		$q.all(request).then(function(){
@@ -389,13 +428,6 @@ webpackJsonp([0],[
 
 		};
 
-	    $scope.counter = function() {
-	    	if($scope.interface.messageContent){
-	    		$scope.updateChatContent($scope.chat._id);
-	        }
-	    };
-
-		$interval($scope.counter, 100);
 
 
 

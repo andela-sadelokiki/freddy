@@ -3,7 +3,7 @@
 var angular = require('angular');
 
 angular.module('freddyApp')
-.controller('mainCtrl', function($scope, dataService, $q, $filter, $interval, $timeout){
+.controller('mainCtrl', function($scope, dataService, $q, $filter, $timeout, socket) {
 
 	dataService.getUser(function(response) { 
     	console.log(response.data);
@@ -12,10 +12,14 @@ angular.module('freddyApp')
     	$scope.loadUserChats();
     });
 
+  	socket.on('connect',function(){
+			console.log('connected');
+  	});
+
 	$scope.loadUsersBasicArray = function(IDsArray){
 		var usersArray = [];
 	 	angular.forEach(IDsArray, function(id){
-		 		dataService.getUsername(id, function(response){
+		 		dataService.getUsername(id, function(response){	
 //		 			var list = loadUsernames(response.data);
 					var person = response.data;
 		 			usersArray.unshift(person);
@@ -120,16 +124,23 @@ angular.module('freddyApp')
 			var scopeChat = {};
 			var found = false;
 			angular.forEach(chats, function(chat){
-				if(!chat.group && chat.users[0]._id == personId){
-					scopeChat = chat;
-					found = true;
+				var user = chat.users[0];
+
+				// if (!chat.group && chat.users[0]._id == personId) {
+				if (!chat.group && user) {
+					if (user._id == personId) {
+						scopeChat = chat;
+						found = true;
+
+						if(found){
+							$scope.chat = scopeChat;
+						} else {
+							$scope.addNewChatToDb();
+						}
+						return;
+					}
 				}
 			});
-			if(found){
-				$scope.chat = scopeChat;
-			} else {
-				$scope.addNewChatToDb();
-			}
 	};
 
 	$scope.addNewChatToDb = function(){
@@ -171,6 +182,7 @@ angular.module('freddyApp')
 	};
 
 	$scope.submitMessage = function(){
+		console.log('clicked');
 		var time = Date.now();
 		var text = $scope.newMessage.text;
 		var userID = $scope.user._id;
@@ -184,12 +196,14 @@ angular.module('freddyApp')
 			id: chatID,
 			dbMessage: dbMessage
 		}
-		dataService.submitMessageToChat(reqBody, function(response){
-			console.log(response.data.message);
-		});
-		$scope.newMessage.text = "";
-		$scope.updateChatContent(chatID);
-	};
+			dataService.submitMessageToChat(reqBody, function(response){
+				console.log("entered", response.data.message);
+			$scope.newMessage.text = "";
+			$scope.updateChatContent(chatID);
+			});
+		  
+		};
+	
 
 	$scope.updateChatContent = function(chatId){
 		var scopeMessages;
@@ -206,7 +220,6 @@ angular.module('freddyApp')
 				}
 			});
 			$scope.chat.messages = scopeMessages;
-//			console.log(scopeMessages);
 		});
 
 //		$q.all(request).then(function(){
@@ -215,13 +228,6 @@ angular.module('freddyApp')
 
 	};
 
-    $scope.counter = function() {
-    	if($scope.interface.messageContent){
-    		$scope.updateChatContent($scope.chat._id);
-        }
-    };
-
-	$interval($scope.counter, 100);
 
 
 

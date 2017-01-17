@@ -1,6 +1,6 @@
 'use strict';
 
-function DataService ($http, $q) {
+function DataService ($http, $q, socket) {
 
   this.getUser = function(cb, cb2) {
     $http.get('/user').then(cb).finally(cb2);
@@ -31,6 +31,8 @@ function DataService ($http, $q) {
   };
 
   this.submitMessageToChat = function(reqBody, cb) {
+    socket.emit('send chat', 'hi server!');
+      console.log('Server emitted displaychat: ' );
     $http.put('/chat/' + reqBody.id, reqBody).then(cb);
   };
 

@@ -3,17 +3,17 @@ var mg = require('nodemailer-mailgun-transport');
 
 var auth = {
   auth: {
-      api_key: '',//your mailgun secret api key
-      domain : ''//you mailgun domain name
+      apiKey: 'key-12a81ba9abcc22e4cb128951a58e2911',//your mailgun secret api key
+      domain : 'freddy.com'//you mailgun domain name
   }
 };
 
 var transporter =nodemailer.createTransport(mg(auth));
 var mailOptions ={
-  to     : '',//---let it empty
-  from   : '', //---fill with email
+  to     : 'susanadelokiki@gmail.com',//---let it empty
+  from   : 'sender@server.com', //---fill with email
   subject: 'Password Reset',
-  text   : ''//---let it empty
+  text   : '<p>Welcome to freddy</p>'//---let it empty
 };
 
 module.exports={
