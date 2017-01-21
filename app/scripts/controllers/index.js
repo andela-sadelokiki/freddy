@@ -3,12 +3,14 @@
 var angular = require('angular');
 
 angular.module('freddyApp')
-.controller('mainCtrl', function($scope, dataService, $q, $filter, $timeout, mySocket) {
+.controller('mainCtrl', function($scope, dataService, $q, $filter, $timeout) {
+	
+	console.log(io, "io here");
+	var socket = io("http://localhost:3000");
 
-	 mySocket.on('message', function (data) {
-		 console.log("new message", data);
-      // $scope.name = data.name;
-    });
+	socket.on('msg-from-server', function(data) {
+		console.log($scope.chat, 'got here', data);
+	});
 
 	dataService.getUser(function(response) { 
     	console.log(response.data);
@@ -16,10 +18,6 @@ angular.module('freddyApp')
     }, function(response) {
     	$scope.loadUserChats();
     });
-
-	mySocket.on('connect',function(){
-		console.log('connected');
-	});
 
 	$scope.loadUsersBasicArray = function(IDsArray){
 		var usersArray = [];
@@ -196,6 +194,7 @@ angular.module('freddyApp')
 			text: text,
 			user: userID
 		};
+		socket.emit('msg-to-server', dbMessage);
 		var reqBody = {
 			id: chatID,
 			dbMessage: dbMessage
@@ -204,8 +203,8 @@ angular.module('freddyApp')
 			$scope.newMessage.text = "";
 			$scope.updateChatContent(chatID);
 			});
-		  
 		};
+
 	
 
 	$scope.updateChatContent = function(chatId){
@@ -216,6 +215,7 @@ angular.module('freddyApp')
 		dataService.updateChat(chatId, function(response){
 			scopeMessages = response.data.messages;
 			angular.forEach(scopeMessages, function(message){
+				console.log(message);
 				if(message.user === userID){
 					message.me = true;
 				} else {

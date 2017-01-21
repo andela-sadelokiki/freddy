@@ -1,6 +1,6 @@
 'use strict';
 
-function DataService ($http, $q, mySocket) {
+function DataService ($http, $q) {
 
   this.getUser = function(cb, cb2) {
     $http.get('/user').then(cb).finally(cb2);

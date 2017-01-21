@@ -2,7 +2,7 @@
 
 var angular = require('angular');
 console.log(angular, "load here");
-angular.module('freddyApp', ['btford.socket-io']);
+angular.module('freddyApp', []);
 
 require('./scripts/services');
 require('./scripts/directives');

@@ -15,10 +15,7 @@ var auth = require('./routes/auth');
 
 var app = express();
 var server = require('http').Server(app);
-var io = require('socket.io')(server);
 
-//socket connect
-io.sockets.on('connection', require('./routes/socket'));
 
 //mongodb connection
 mongoose.connect('mongodb://localhost:27017/freddy');

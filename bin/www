@@ -25,12 +25,11 @@ var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
 io.sockets.on('connection', function(socket) {
-  console.log('ya we got connected')
-  socket.on('send chat', function(data) {
-    console.log('message sent '+ data);
+  socket.on('msg-to-server', function(data) {
+    socket.broadcast.emit('msg-from-server', data);
   });
-
 });
+
 /**
  * Listen on provided port, on all network interfaces.
  */

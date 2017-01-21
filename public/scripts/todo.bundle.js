@@ -6,7 +6,7 @@ webpackJsonp([0],[
 
 	var angular = __webpack_require__(1);
 	console.log(angular, "load here");
-	angular.module('freddyApp', ['btford.socket-io']);
+	angular.module('freddyApp', []);
 
 	__webpack_require__(3);
 	__webpack_require__(5);
@@ -27,11 +27,7 @@ webpackJsonp([0],[
 
 	angular.module('freddyApp').service('dataService', __webpack_require__(4));
 
-	angular.module('freddyApp').factory('mySocket', function (socketFactory) {
-	  var mySocket = socketFactory();
-	  mySocket.forward('error');
-	  return mySocket;
-	});
+
 
 /***/ },
 /* 4 */
@@ -39,7 +35,7 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	function DataService ($http, $q, mySocket) {
+	function DataService ($http, $q) {
 
 	  this.getUser = function(cb, cb2) {
 	    $http.get('/user').then(cb).finally(cb2);
@@ -182,12 +178,15 @@ webpackJsonp([0],[
 	var angular = __webpack_require__(1);
 
 	angular.module('freddyApp')
-	.controller('mainCtrl', function($scope, dataService, $q, $filter, $timeout, mySocket) {
+	.controller('mainCtrl', function($scope, dataService, $q, $filter, $timeout) {
+		
+		console.log(io, "io here");
+		var socket = io("http://localhost:3000");
 
-		 mySocket.on('message', function (data) {
-			 console.log("new message", data);
-	      // $scope.name = data.name;
-	    });
+		socket.on('msg-from-server', function(data) {
+			
+			console.log($scope.chat, 'got here', data);
+		});
 
 		dataService.getUser(function(response) { 
 	    	console.log(response.data);
@@ -195,10 +194,6 @@ webpackJsonp([0],[
 	    }, function(response) {
 	    	$scope.loadUserChats();
 	    });
-
-		mySocket.on('connect',function(){
-			console.log('connected');
-		});
 
 		$scope.loadUsersBasicArray = function(IDsArray){
 			var usersArray = [];
@@ -375,6 +370,7 @@ webpackJsonp([0],[
 				text: text,
 				user: userID
 			};
+			socket.emit('msg-to-server', dbMessage);
 			var reqBody = {
 				id: chatID,
 				dbMessage: dbMessage
@@ -383,7 +379,6 @@ webpackJsonp([0],[
 				$scope.newMessage.text = "";
 				$scope.updateChatContent(chatID);
 				});
-			  
 			};
 		
 
@@ -395,6 +390,7 @@ webpackJsonp([0],[
 			dataService.updateChat(chatId, function(response){
 				scopeMessages = response.data.messages;
 				angular.forEach(scopeMessages, function(message){
+					console.log(message);
 					if(message.user === userID){
 						message.me = true;
 					} else {

@@ -407,7 +407,6 @@ router.put('/chat/:chatID', function(req, res){
         if (err) {
             return res.status(500).json({ err: err.message });
           };
-        console.log(res, "form server");
     });
     return res.json({"message": 'Message sent'});
 });
